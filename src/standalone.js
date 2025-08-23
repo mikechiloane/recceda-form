@@ -9,120 +9,13 @@ function sanitize(input) {
     .replace(/'/g, '&#x27;');
 }
 
-// Inject CSS styles
-const css = `
-.recceda-form {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: #fff;
-}
-
-.recceda-field {
-  margin-bottom: 20px;
-}
-
-.recceda-field label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: 500;
-  color: #333;
-}
-
-.recceda-field input,
-.recceda-field textarea,
-.recceda-field select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  font-size: 14px;
-  transition: border-color 0.2s;
-}
-
-.recceda-field input:focus,
-.recceda-field textarea:focus,
-.recceda-field select:focus {
-  outline: none;
-  border-color: #007bff;
-}
-
-.recceda-field textarea {
-  resize: vertical;
-  min-height: 80px;
-}
-
-.recceda-radio-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.recceda-radio-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.recceda-radio-item input[type="radio"] {
-  width: auto;
-  margin: 0;
-}
-
-.recceda-checkbox {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.recceda-checkbox input[type="checkbox"] {
-  width: auto;
-  margin: 0;
-}
-
-.recceda-submit {
-  background: #007bff;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.recceda-submit:hover {
-  background: #0056b3;
-}
-
-.recceda-error {
-  color: #dc3545;
-  font-size: 12px;
-  margin-top: 4px;
-}
-
-.recceda-message {
-  padding: 10px;
-  margin: 10px 0;
-  font-weight: 500;
-}
-
-.recceda-message.success {
-  background: #d4edda;
-  color: #155724;
-}
-
-.recceda-message.error {
-  background: #f8d7da;
-  color: #721c24;
-}
-`;
-
-// Inject styles into document
+// Load external CSS
 if (!document.getElementById('recceda-styles')) {
-  const style = document.createElement('style');
-  style.id = 'recceda-styles';
-  style.textContent = css;
-  document.head.appendChild(style);
+  const link = document.createElement('link');
+  link.id = 'recceda-styles';
+  link.rel = 'stylesheet';
+  link.href = './styles.css';
+  document.head.appendChild(link);
 }
 
 class ReccedaForm {
