@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Contact Form</title>
+    <link rel="stylesheet" href="../src/enterprise-blue.css">
+</head>
+<body>
+    <div class="recceda-form-container">
+        <h1 class="recceda-form-title">Contact Us</h1>
+        <form class="recceda-form" id="contact-form">
+            <div class="recceda-form-row">
+                <div class="recceda-field">
+                    <label for="firstName">First Name <span class="required">*</span></label>
+                    <input type="text" id="firstName" name="firstName" required>
+                    <div class="recceda-error"></div>
+                </div>
+                <div class="recceda-field">
+                    <label for="lastName">Last Name <span class="required">*</span></label>
+                    <input type="text" id="lastName" name="lastName" required>
+                    <div class="recceda-error"></div>
+                </div>
+            </div>
+            
+            <div class="recceda-form-row">
+                <div class="recceda-field">
+                    <label for="email">Email <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" required>
+                    <div class="recceda-error"></div>
+                </div>
+                <div class="recceda-field">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" name="phone">
+                    <div class="recceda-error"></div>
+                </div>
+            </div>
+            
+            <div class="recceda-field">
+                <label for="company">Company</label>
+                <input type="text" id="company" name="company">
+                <div class="recceda-error"></div>
+            </div>
+            
+            <div class="recceda-field">
+                <label for="subject">Subject <span class="required">*</span></label>
+                <input type="text" id="subject" name="subject" required>
+                <div class="recceda-error"></div>
+            </div>
+            
+            <div class="recceda-field">
+                <label for="message">Message <span class="required">*</span></label>
+                <textarea id="message" name="message" required></textarea>
+                <div class="recceda-error"></div>
+            </div>
+            
+            <div class="recceda-field">
+                <div class="recceda-checkbox">
+                    <input type="checkbox" id="privacy" name="privacy" required>
+                    <label for="privacy">I agree to the privacy policy and terms of service <span class="required">*</span></label>
+                </div>
+                <div class="recceda-error"></div>
+            </div>
+            
+            <div class="recceda-field">
+                <div class="recceda-checkbox">
+                    <input type="checkbox" id="newsletter" name="newsletter">
+                    <label for="newsletter">Subscribe to our newsletter for updates</label>
+                </div>
+                <div class="recceda-error"></div>
+            </div>
+            
+            <button type="submit" class="recceda-submit">Send Message</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show success message
+            const successMsg = document.createElement('div');
+            successMsg.className = 'recceda-message success';
+            successMsg.textContent = 'Form submitted successfully!';
+            
+            const form = this;
+            form.parentNode.insertBefore(successMsg, form);
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => successMsg.remove(), 5000);
+            
+            // Reset form
+            form.reset();
+        });
+    </script>
+</body>
+</html>

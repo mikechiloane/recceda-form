@@ -1,0 +1,317 @@
+/* Form Container */
+.recceda-form-container {
+  max-width: 600px;
+  width: 100%;
+  background: #ffffff;
+  padding: 48px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  animation: slideUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+}
+
+/* Animations */
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Typography */
+.recceda-form-title {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 300;
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+  line-height: 1.2;
+}
+
+/* Form Structure */
+.recceda-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.recceda-form-row {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+}
+
+/* Field Styling */
+.recceda-field {
+  flex: 1;
+  position: relative;
+  min-width: 0;
+}
+
+/* Labels */
+.recceda-field label {
+  display: block;
+  font-size: 0.95em;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 8px;
+  line-height: 1.3;
+  cursor: pointer;
+}
+
+.recceda-field label .required {
+  color: #e74c3c;
+  margin-left: 3px;
+  font-weight: 600;
+}
+
+/* Form Inputs */
+.recceda-field input,
+.recceda-field textarea,
+.recceda-field select {
+  width: 100%;
+  padding: 16px;
+  font-size: 16px;
+  font-family: inherit;
+  background: #ffffff;
+  border: 2px solid #9ca3af;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  appearance: none;
+}
+
+.recceda-field input:focus,
+.recceda-field textarea:focus,
+.recceda-field select:focus {
+  outline: none;
+  background: #ffffff;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Input States */
+.recceda-field input:invalid:not(:focus):not(:placeholder-shown),
+.recceda-field textarea:invalid:not(:focus):not(:placeholder-shown),
+.recceda-field select:invalid:not(:focus) {
+  border-color: #9ca3af;
+}
+
+.recceda-field input:valid:not(:focus),
+.recceda-field textarea:valid:not(:focus),
+.recceda-field select:valid:not(:focus) {
+  border-color: #9ca3af;
+}
+
+/* Specific Input Types */
+.recceda-field textarea {
+  min-height: 120px;
+  max-height: 300px;
+  resize: vertical;
+  font-family: inherit;
+  line-height: 1.5;
+}
+
+.recceda-field select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23555' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 15px) center;
+  padding-right: 45px;
+}
+
+/* Placeholder Styling */
+.recceda-field input::placeholder,
+.recceda-field textarea::placeholder {
+  color: #999;
+  opacity: 1;
+}
+
+/* Checkbox Styling */
+.recceda-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.recceda-checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  flex-shrink: 0;
+  cursor: pointer;
+  accent-color: #1e3a8a;
+}
+
+.recceda-checkbox label {
+  margin: 0;
+  font-size: 0.95em;
+  line-height: 1.4;
+  cursor: pointer;
+  user-select: none;
+}
+
+.recceda-checkbox:hover input[type="checkbox"] {
+  box-shadow: 0 2px 8px rgba(30, 58, 138, 0.2);
+}
+
+/* Submit Button */
+.recceda-submit {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 18px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  align-self: stretch;
+  margin-top: 16px;
+  position: relative;
+}
+
+.recceda-submit:hover:not(:disabled) {
+  background: #2563eb;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.recceda-submit:active:not(:disabled) {
+  background: #1d4ed8;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+}
+
+.recceda-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.recceda-submit:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+/* Messages */
+.recceda-message {
+  padding: 15px;
+  border-left: 4px solid;
+  border-radius: 0;
+  font-size: 0.95em;
+  line-height: 1.4;
+}
+
+.recceda-message.success {
+  background: #d4edda;
+  color: #155724;
+  border-left-color: #28a745;
+}
+
+.recceda-message.error {
+  background: #f8d7da;
+  color: #721c24;
+  border-left-color: #dc3545;
+}
+
+/* Field Error Messages */
+.recceda-error {
+  color: #e74c3c;
+  font-size: 0.85em;
+  margin-top: 5px;
+  line-height: 1.3;
+  opacity: 0;
+  height: 0;
+  transition: opacity 0.3s ease, height 0.3s ease;
+}
+
+.recceda-error.show {
+  opacity: 1;
+  height: auto;
+}
+
+/* Loading State */
+.recceda-form.loading .recceda-field input,
+.recceda-form.loading .recceda-field textarea,
+.recceda-form.loading .recceda-field select {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* Accessibility Improvements */
+.recceda-field input:focus,
+.recceda-field textarea:focus,
+.recceda-field select:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .recceda-form-container,
+  .recceda-field,
+  .recceda-field input,
+  .recceda-field textarea,
+  .recceda-field select,
+  .recceda-submit {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+  .recceda-form-container {
+    padding: 30px 20px;
+    margin: 10px;
+  }
+  
+  .recceda-form-title {
+    margin-bottom: 25px;
+  }
+  
+  .recceda-form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .recceda-field {
+    margin-bottom: 20px;
+  }
+  
+  .recceda-submit {
+    padding: 18px 30px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .recceda-form-container {
+    padding: 25px 15px;
+  }
+  
+  .recceda-field input,
+  .recceda-field textarea,
+  .recceda-field select {
+    padding: 12px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .recceda-field input,
+  .recceda-field textarea,
+  .recceda-field select {
+    border-width: 2px;
+  }
+  
+  .recceda-field input:focus,
+  .recceda-field textarea:focus,
+  .recceda-field select:focus {
+    border-width: 3px;
+  }
+}
