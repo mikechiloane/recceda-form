@@ -5,8 +5,9 @@ export class ReccedaForm {
   private formId: string;
   private schema: Schema;
   private targetElement: HTMLElement;
+  private baseUrl: string;
 
-  static async init(formId: string, targetElementId: string): Promise<void> {
+  static async init(formId: string, targetElementId: string, baseUrl: string = 'http://localhost:8080'): Promise<void> {
     const targetElement = document.getElementById(targetElementId);
     if (!targetElement) {
       console.error(`Target element with ID "${targetElementId}" not found`);
@@ -14,17 +15,17 @@ export class ReccedaForm {
     }
 
     try {
-      const schema = await this.fetchSchema(formId);
-      const form = new ReccedaForm(formId, schema, targetElement);
+      const schema = await this.fetchSchema(formId, baseUrl);
+      const form = new ReccedaForm(formId, schema, targetElement, baseUrl);
       form.render();
     } catch (error) {
       console.error('Failed to initialize form:', error);
-      targetElement.innerHTML = 'Failed to load form.';
+      targetElement.innerHTML = '<div style="text-align: center; padding: 40px 20px; color: #666; font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, sans-serif;"><h3 style="margin: 0 0 10px 0; color: #333;">Unable to Load Form</h3><p style="margin: 0; font-size: 14px;">Please check your connection and try again.</p></div>';
     }
   }
 
-  static async fetchSchema(formId: string): Promise<Schema> {
-    const response = await fetch(`http://localhost:8080/public/submission/form/${formId}`);
+  static async fetchSchema(formId: string, baseUrl: string): Promise<Schema> {
+    const response = await fetch(`${baseUrl}/public/submission/form/${formId}`);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     
     const data: ApiResponse = await response.json();
@@ -35,10 +36,11 @@ export class ReccedaForm {
     return data.data[0];
   }
 
-  constructor(formId: string, schema: Schema, targetElement: HTMLElement) {
+  constructor(formId: string, schema: Schema, targetElement: HTMLElement, baseUrl: string) {
     this.formId = formId;
     this.schema = schema;
     this.targetElement = targetElement;
+    this.baseUrl = baseUrl;
   }
 
   render(): void {
@@ -236,7 +238,7 @@ export class ReccedaForm {
 
   private async submitForm(formData: ReccedaFormData): Promise<any> {
     try {
-      const response = await fetch(`http://localhost:8080/public/submission/form/${this.formId}`, {
+      const response = await fetch(`${this.baseUrl}/public/submission/form/${this.formId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
@@ -263,7 +265,7 @@ export class ReccedaForm {
     messageDiv.className = `recceda-message ${type === 'green' ? 'success' : 'error'}`;
     
     const form = document.getElementById(`recceda-form-${this.formId}`)!;
-    form.parentNode!.insertBefore(messageDiv, form.nextSibling);
+    form.insertBefore(messageDiv, form.firstChild);
     
     setTimeout(() => messageDiv.remove(), 5000);
   }

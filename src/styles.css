@@ -111,3 +111,20 @@
   color: #721c24;
   border: 1px solid #f5c6cb;
 }
+
+.recceda-loading-error {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.recceda-loading-error h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.recceda-loading-error p {
+  margin: 0;
+  font-size: 14px;
+}

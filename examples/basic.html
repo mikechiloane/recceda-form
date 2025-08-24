@@ -8,11 +8,18 @@
 </head>
 <body>
     <h1>Recceda Form - Basic Example</h1>
-    <div id="form-container"></div>
+    <div id="form container-wrapper" style="max-width: 600px; margin: auto;">
+        <div id="form-container"></div>
+    </div>
     
     <script src="../build/recceda.min.js"></script>
     <script>
-        ReccedaForm.init("68a9eb7bc61c03529d9384d6", "form-container");
+        // Use a working API endpoint or handle the error gracefully
+        ReccedaForm.init("68a9eb7bc61c03529d9384d6", "form-container", "https://seashell-app-6i5o6.ondigitalocean.app")
+            .catch(error => {
+                console.log('Using fallback form due to API error');
+                document.getElementById('form-container').innerHTML = '<p>Form temporarily unavailable. Please try again later.</p>';
+            });
     </script>
 </body>
 </html>

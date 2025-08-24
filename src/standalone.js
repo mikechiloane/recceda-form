@@ -19,13 +19,14 @@ if (!document.getElementById('recceda-styles')) {
 }
 
 class ReccedaForm {
-  constructor(formId, schema, targetElement) {
+  constructor(formId, schema, targetElement, baseUrl) {
     this.formId = formId;
     this.schema = schema;
     this.targetElement = targetElement;
+    this.baseUrl = baseUrl;
   }
 
-  static async init(formId, targetElementId) {
+  static async init(formId, targetElementId, baseUrl = 'http://localhost:8080') {
     const targetElement = document.getElementById(targetElementId);
     if (!targetElement) {
       console.error(`Target element with ID "${targetElementId}" not found`);
@@ -33,17 +34,17 @@ class ReccedaForm {
     }
 
     try {
-      const schema = await this.fetchSchema(formId);
-      const form = new ReccedaForm(formId, schema, targetElement);
+      const schema = await this.fetchSchema(formId, baseUrl);
+      const form = new ReccedaForm(formId, schema, targetElement, baseUrl);
       form.render();
     } catch (error) {
       console.error('Failed to initialize form:', error);
-      targetElement.innerHTML = 'Failed to load form.';
+      targetElement.innerHTML = '<div style="text-align: center; padding: 40px 20px; color: #666; font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, sans-serif;"><h3 style="margin: 0 0 10px 0; color: #333;">Unable to Load Form</h3><p style="margin: 0; font-size: 14px;">Please check your connection and try again.</p></div>';
     }
   }
 
-  static async fetchSchema(formId) {
-    const response = await fetch(`http://localhost:8080/public/submission/form/${formId}`);
+  static async fetchSchema(formId, baseUrl) {
+    const response = await fetch(`${baseUrl}/public/submission/form/${formId}`);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     
     const data = await response.json();
@@ -92,6 +93,7 @@ class ReccedaForm {
     const label = document.createElement('label');
     label.setAttribute('for', field.name);
     label.textContent = sanitize(field.label);
+
     container.appendChild(label);
 
     const input = this.createInput(field);
@@ -178,6 +180,7 @@ class ReccedaForm {
     input.name = field.name;
     input.id = field.name;
 
+
     if (field.placeholder) input.placeholder = sanitize(field.placeholder);
     if (field.required) input.required = true;
     if (field.regex) input.pattern = field.regex;
@@ -250,7 +253,7 @@ class ReccedaForm {
 
   async submitForm(formData) {
     try {
-      const response = await fetch(`http://localhost:8080/public/submission/form/${this.formId}`, {
+      const response = await fetch(`${this.baseUrl}/public/submission/form/${this.formId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
@@ -274,7 +277,7 @@ class ReccedaForm {
   showMessage(message, type) {
     const messageDiv = document.createElement('div');
     messageDiv.textContent = message;
-    messageDiv.className = `recceda-message ${type === 'green' ? 'success' : 'error'}`;
+    messageDiv.className = `p-2.5 my-2.5 font-medium ${type === 'green' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`;
     
     const form = document.getElementById(`recceda-form-${this.formId}`);
     form.parentNode.insertBefore(messageDiv, form.nextSibling);
